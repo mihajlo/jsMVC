@@ -1,4 +1,18 @@
+try {
+    if (window.production) {
+        console.log = function () {
+        };
+        console.error = function () {
+        };
+        console.warn = function () {
+        };
+        console.info = function () {
+        };
+    }
+} catch (e) {
+}
 __remove_childs();
+
 
 console.w=function (str){
     console.warn('%c'+str,'font-weight:bold; color:darkorange;');
