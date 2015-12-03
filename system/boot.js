@@ -183,8 +183,11 @@ while (foo.firstChild) foo.removeChild(foo.firstChild);
 
 
 function __remove_childs(){
-    for(nn=document.getElementsByTagName('script').length-1;nn>=0;nn--){
-        document.head.removeChild(document.getElementsByTagName('script')[nn]);
+    try {
+        for (nn = document.getElementsByTagName('script').length - 1; nn >= 0; nn--) {
+            document.head.removeChild(document.getElementsByTagName('script')[nn]);
+        }
+    } catch (e) {
     }
 }
 
