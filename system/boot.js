@@ -47,7 +47,7 @@ var fw={
                 console.e('Can\'t load: ' + path);
                 return false;
             }
-            jQuery.ajaxSetup({async:false});
+            jQuery.ajaxSetup({async:true});
         } catch (e) {
 
             if (__require_once(path)) {
