@@ -5,7 +5,7 @@ fw.config={
         
         //Load jQuery library
         {
-            src:'https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js',
+            src:window.location.protocol+'//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js',
             callback:function(){
                 fw.lib.jQuery=jQuery;
                 fw.jQuery=jQuery;
@@ -24,6 +24,12 @@ fw.config={
                 fw.lib.webcam=webcam;
                 fw.webcam=webcam;
                 webcam=null;
+            }
+        },
+        {
+            src:'//connect.facebook.net/en_US/sdk.js',
+            callback:function(){
+                
             }
         }
         
