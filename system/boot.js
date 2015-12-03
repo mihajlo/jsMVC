@@ -8,6 +8,7 @@ try {
         };
         console.info = function () {
         };
+        
     }
 } catch (e) {
 }
@@ -28,19 +29,38 @@ console.e=function (str){
     console.error('%c'+str,'font-weight:bold; color:red;');
 };
 var fw={
-    getJS:function(path){
-        console.w('Try to load...: '+path);
+    getJS: function (path) {
+        console.w('Try to load...: ' + path);
+
+        // if(__require_once(path)){
+        try {
+            jQuery.ajaxSetup({async:false});
+            if (jQuery.getScript(path)) {
+                console.i('Loaded: ' + path);
+                __remove_childs();
+                //document.head.getElementsByTagName('script')[document.head.getElementsByTagName('script').length-1].remove();
+                return true;
+            }
+            else {
+                console.e('Can\'t load: ' + path);
+                return false;
+            }
+            jQuery.ajaxSetup({async:false});
+        } catch (e) {
+
+            if (__require_once(path)) {
+                console.i('Loaded: ' + path);
+                __remove_childs();
+                //document.head.getElementsByTagName('script')[document.head.getElementsByTagName('script').length-1].remove();
+                return true;
+            }
+            else {
+                console.e('Can\'t load: ' + path);
+                return false;
+            }
+        }
         
-        if(__require_once(path)){
-            console.i('Loaded: '+path);
-            __remove_childs();
-            //document.head.getElementsByTagName('script')[document.head.getElementsByTagName('script').length-1].remove();
-            return true;
-        }
-        else{
-            console.e('Can\'t load: '+path);
-            return false;
-        }
+
     },
     helper:{},
     lib:{},
