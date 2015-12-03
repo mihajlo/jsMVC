@@ -27,9 +27,31 @@ fw.config={
             }
         },
         {
-            src:'//connect.facebook.net/en_US/sdk.js',
-            callback:function(){
-                
+            src: '//connect.facebook.net/en_US/sdk.js',
+            callback: function () {
+                $(window).load(function () {
+                    FB.init({
+                        appId: '327659417280855',
+                        cookie: true,
+                        xfbml: true,
+                        version: 'v2.5'
+                    });
+                    FB.getLoginStatus(function (response) {
+                        if (response.status != "connected") {
+                            console.log('must connect');
+                            FB.login(function (response) {
+                                if (response.authResponse) {
+                                    FB.access_token = response.authResponse.accessToken;
+                                } else {
+                                    console.e('FB Login canceled!');
+                                }
+                            });
+                        }
+                        else {
+                            FB.access_token = response.authResponse.accessToken;
+                        }
+                    });
+                });
             }
         }
         
