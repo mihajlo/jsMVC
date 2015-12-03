@@ -14,20 +14,22 @@ try {
 }
 __remove_childs();
 
+try {
+    console.w = function (str) {
+        console.warn('%c' + str, 'font-weight:bold; color:darkorange;');
+    };
 
-console.w=function (str){
-    console.warn('%c'+str,'font-weight:bold; color:darkorange;');
-};
-
-console.i=function (str){
-    console.info('%c'+str,'font-weight:bold; color:green;');
-};
-console.l=function (str){
-    console.log('%c'+str,'font-weight:bold; color:blue;');
-};
-console.e=function (str){
-    console.error('%c'+str,'font-weight:bold; color:red;');
-};
+    console.i = function (str) {
+        console.info('%c' + str, 'font-weight:bold; color:green;');
+    };
+    console.l = function (str) {
+        console.log('%c' + str, 'font-weight:bold; color:blue;');
+    };
+    console.e = function (str) {
+        console.error('%c' + str, 'font-weight:bold; color:red;');
+    };
+} catch (e) {
+}
 var fw={
     getJS: function (path) {
         console.w('Try to load...: ' + path);
