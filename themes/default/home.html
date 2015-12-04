@@ -1,4 +1,27 @@
- <div>
-     <h1>Example Homepage</h1>
-     <p>Right now: <span label="time"></span></p>
+<div>
+    <h1>Example Homepage</h1>
+    <p>Right now: <span label="time"></span></p>
+    <ul>
+        <div fw-repeat="fw.model.example.users">
+            <li>
+                <fw>name</fw>
+                <fw>surname</fw>
+            </li>
+        </div>
+    </ul>
+
+
+    <hr>
+    <ul>
+        <li fw-repeat="fw.model.example.users2">
+            <fw>name</fw>
+            <fw>surname</fw>
+        </li>
+    </ul>
 </div>
+<hr>
+<p>
+    <a href="#" fw-href="fw.model.settings.link">
+        <fw>fw.model.example.users2[0].name</fw>
+    </a>
+</p>
