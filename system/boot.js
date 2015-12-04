@@ -235,6 +235,7 @@ eval('fw.controller.' + fw.config.default_controller + '.' + fw.config.ready_met
 //events  auto binding
 jQuery(document).ready(function () {
     fw.apply();
+    fw.getJS('app/events.js');
 });
 jQuery(document).ajaxComplete(function (event, request, settings) {
     fw.apply();
