@@ -3,7 +3,9 @@ fw.config={
     //START CONFIG LOADING LIBRARIES
     libs:[
         
-        //Load jQuery library
+
+
+        //Load jQuery library (REQUIRED)
         {
             src:window.location.protocol+'//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js',
             callback:function(){
