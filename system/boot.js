@@ -174,6 +174,39 @@ for (i = 0; i < fw.config.libs.length; i++) {
 }
 
 
+
+(function ($) {
+    // Attrs
+    $.fn.attrs = function (attrs) {
+        var t = $(this);
+        if (attrs) {
+            // Set attributes
+            t.each(function (i, e) {
+                var j = $(e);
+                for (var attr in attrs) {
+                    j.attr(attr, attrs[attr]);
+                };
+            });
+            return t;
+        } else {
+            // Get attributes
+            var a = {},
+                r = t.get(0);
+            if (r) {
+                r = r.attributes;
+                for (var i in r) {
+                    var p = r[i];
+                    if (typeof p.nodeValue !== 'undefined') a[p.nodeName] = p.nodeValue;
+                }
+            }
+            return a;
+        }
+    };
+})(jQuery);
+
+
+
+
 fw.config.helpers.push({
     name: 'str_replace',
     global: true
@@ -471,6 +504,30 @@ fw.apply = function () {
         for (i = 0; i < jQuery('fw').length; i++) {
             jQuery('fw')[i].outerHTML = eval(jQuery('fw').eq(i).html());
         }
+    } catch (e) {}
+
+    try {
+
+        jQuery.each(jQuery('body').find('*').filter(function () {
+            try {
+                var ret = false;
+                jQuery.each($(this).attrs(), function (k, v) {
+                    if (v.indexOf('<fw>') >= 0) {
+                        ret = true;
+                    }
+                });
+                return ret;
+            } catch (e) {
+                return false;
+            }
+        }), function (k, v) {
+            jQuery.each(jQuery(v).attrs(), function (kk, vv) {
+                if (vv.indexOf('<fw>') >= 0) {
+                    jQuery(v).attr(kk, eval(str_replace(['<fw>', '</fw>'], ['', ''], vv)));
+                }
+            });
+        });
+
     } catch (e) {}
 
 }
