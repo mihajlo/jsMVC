@@ -485,49 +485,51 @@ function __require_once(e) {
 
 fw.apply = function () {
 
-    //handle repeat
-    jQuery.each(jQuery('[fw-repeat]'), function (kt, vt) {
-        try {
-            jQuery.each(eval(jQuery('[fw-repeat]').eq(0).attr('fw-repeat')), function (k, v) {
-                var el = str_replace(jQuery('[fw-repeat]').eq(0).attr('fw-repeat'), '3done3', jQuery('[fw-repeat]')[0].outerHTML);
-                jQuery.each(v, function (kk, vv) {
-                    el = str_replace('<fw>' + kk + '</fw>', vv, el);
-                });
-                jQuery('[fw-repeat]').eq(k).after(el);
-            });
-            jQuery('[fw-repeat]').eq(0).remove();
-            jQuery('[fw-repeat="3done3"]').removeAttr('fw-repeat');
-        } catch (e) {}
-    });
 
-    try {
-        for (i = 0; i < jQuery('fw').length; i++) {
-            jQuery('fw')[i].outerHTML = eval(jQuery('fw').eq(i).html());
-        }
-    } catch (e) {}
+    //START repeat multiplaing
+    jQuery.each(jQuery('repeat'), function (k, v) {
 
-    try {
+        var htmlAll = '';
+        var curHtml = jQuery(v).html();
+        var modelStr = jQuery(v).attr('model');
+        var model = eval(modelStr);
+        var nn = 0;
 
-        jQuery.each(jQuery('*').filter(function () {
-            try {
-                var ret = false;
-                jQuery.each($(this).attrs(), function (k, v) {
-                    if (v.indexOf('<fw>') >= 0) {
-                        ret = true;
-                    }
-                });
-                return ret;
-            } catch (e) {
-                return false;
-            }
-        }), function (k, v) {
-            jQuery.each(jQuery(v).attrs(), function (kk, vv) {
-                if (vv.indexOf('<fw>') >= 0) {
-                    jQuery(v).attr(kk, eval(str_replace(['<fw>', '</fw>'], ['', ''], vv)));
-                }
-            });
+        model.forEach(function (item) {
+            curHtml = jQuery(v).html();
+            curHtml = str_replace('{{', '{{' + modelStr + '[' + nn + '].', curHtml);
+            htmlAll += curHtml;
+            nn++;
         });
 
-    } catch (e) {}
+        jQuery(v)[0].outerHTML = htmlAll;
+
+    });
+    //END repeat multiplaing
+
+    //START fixed parsing
+    var bodyHtml = jQuery('body').html();
+    //try {
+    var countTmps = (bodyHtml.match(/{{/g) || []).length;
+    for (i = 0; i < countTmps; i++) {
+
+        if ($('body').html().indexOf('{{') >= 0) {
+            var startTmp = bodyHtml.indexOf('{{') + 2;
+            var endTmp = bodyHtml.indexOf('}}');
+            var varString = bodyHtml.substring(startTmp, endTmp);
+            bodyHtml = bodyHtml.replace('{{', '').replace('}}', '');
+            try {
+                var varValue = eval(varString);
+            } catch (e) {
+                varValue = false;
+            }
+            if (!varValue) {
+                varValue = varString;
+            }
+            bodyHtml = bodyHtml.replace(varString, varValue);
+            jQuery('body').html(bodyHtml);
+        }
+    }
+
 
 }

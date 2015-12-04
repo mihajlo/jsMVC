@@ -1,30 +1,30 @@
 <div>
+
+
     <h1>Example Homepage</h1>
     <p>Right now: <span label="time"></span></p>
     <ul>
-       <!--still not available repeat inside repeat-->
-        <div fw-repeat="fw.model.example.users">
-            <li>
-                <fw>name</fw>
-                <fw>surname</fw>
-            </li>
-        </div>
+        <repeat model="fw.model.example.users">
+            <div>
+                <li>{{name}} {{surname}}</li>
+            </div>
+        </repeat>
     </ul>
 
 
     <hr>
     <ul>
-        <li fw-repeat="fw.model.example.users2">
-            <fw>name</fw>
-            <fw>surname</fw>
-        </li>
+        <repeat model="fw.model.example.users2">
+            <li>{{ime}} {{prezime}}</li>
+        </repeat>
     </ul>
 </div>
 <hr>
+
 <p>
-    <a href="<fw>fw.model.settings.link</fw>">
-        <fw>fw.model.example.users2[0].name</fw>
-    </a>
+    <a href="{{fw.model.settings.link}}">
+            {{fw.model.example.users2[0].ime}}
+        </a>
 </p>
 <p>
     <a href="#test">

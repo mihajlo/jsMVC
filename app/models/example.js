@@ -9,19 +9,19 @@ var example = {
             surname: 'Siljanoski2'
         },
         {
-            name: 'Mihajlo2',
-            surname: 'Siljanoski2'
+            name: 'Mihajlo3',
+            surname: 'Siljanoski3'
         }
     ],
 
     users2: [
         {
-            name: 'John',
-            surname: 'Smith'
+            ime: 'John',
+            prezime: 'Smith'
         },
         {
-            name: 'John2',
-            surname: 'Smith2'
+            ime: 'John2',
+            prezime: 'Smith2'
         }
     ]
 };

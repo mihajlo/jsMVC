@@ -1,16 +1,16 @@
-fw.config={
-    
+fw.config = {
+
     //START CONFIG LOADING LIBRARIES
-    libs:[
-        
+    libs: [
+
 
 
         //Load jQuery library (REQUIRED)
         {
-            src:window.location.protocol+'//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js',
-            callback:function(){
-                fw.lib.jQuery=jQuery;
-                fw.jQuery=jQuery;
+            src: window.location.protocol + '//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js',
+            callback: function () {
+                fw.lib.jQuery = jQuery;
+                fw.jQuery = jQuery;
             }
         },
         //Load webcam lib
@@ -21,11 +21,11 @@ fw.config={
          * picture_content has base64 content of image
          */
         {
-            src:'system/libs/webcam.js',
-            callback:function(){
-                fw.lib.webcam=webcam;
-                fw.webcam=webcam;
-                webcam=null;
+            src: 'system/libs/webcam.js',
+            callback: function () {
+                fw.lib.webcam = webcam;
+                fw.webcam = webcam;
+                webcam = null;
             }
         },
         {
@@ -48,39 +48,38 @@ fw.config={
                                     console.e('FB Login canceled!');
                                 }
                             });
-                        }
-                        else {
+                        } else {
                             FB.access_token = response.authResponse.accessToken;
                         }
                     });
                 });
             }
         }
-        
+
     ],
     //END CONFIG LOADING LIBRARIES
-    
+
     //START CONFIG LOADING HELPERS
-    helpers:[
-        
+    helpers: [
+
         //phpjs helper for easy getting parametars from url
         {
-            name:'$_GET',
-            global:true
+            name: '$_GET',
+            global: true
         }
     ],
     //END CONFIG LOADING HELPERS
-    
+
     //START CONFIG LOADING models
-    models:[
+    models: [
         'settings'
     ],
     //END CONFIG LOADING models
-    
+
     //LOAD default controller
-    default_controller:'home',
+    default_controller: 'home',
     //run default method from default controller
-    ready_method:'run()'
-    
-    
+    ready_method: 'run()'
+
+
 };
