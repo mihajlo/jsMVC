@@ -230,12 +230,21 @@ for (m = 0; m < fw.config.models.length; m++) {
 
 fw.load.controller(fw.config.default_controller);
 eval('fw.controller.' + fw.config.default_controller + '.' + fw.config.ready_method + ';');
+
+
+//events  auto binding
 jQuery(document).ready(function () {
     fw.apply();
 });
 jQuery(document).ajaxComplete(function (event, request, settings) {
     fw.apply();
 });
+
+jQuery(document).on('keyup', function () {
+    fw.apply();
+});
+
+
 
 
 var foo = document.getElementsByTagName('script');

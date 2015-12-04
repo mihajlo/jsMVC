@@ -22,12 +22,15 @@
 <hr>
 
 <p>
-    <a href="{{fw.model.settings.link}}">
-            {{fw.model.example.users2[0].ime}}
+    <a class="newQuestion" href="{{fw.model.settings.link}}">
+            New question
         </a>
 </p>
-<p>
-    <a href="#test">
-        Fixed link
-    </a>
-</p>
+<hr />
+<p><strong>{{fw.model.example.quiz.data.question.question}}</strong></p>
+<ul>
+    <repeat model="fw.model.example.quiz.data.answers">
+        <li>{{answer}}</li>
+    </repeat>
+
+</ul>
