@@ -508,7 +508,7 @@ fw.apply = function () {
 
     try {
 
-        jQuery.each(jQuery('body').find('*').filter(function () {
+        jQuery.each(jQuery('*').filter(function () {
             try {
                 var ret = false;
                 jQuery.each($(this).attrs(), function (k, v) {
