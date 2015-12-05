@@ -7,7 +7,25 @@
     <ul>
         <repeat model="fw.model.example.users">
             <div>
-                <li>{{name}} {{surname}}</li>
+                <li>{{name}} {{surname}}
+                    <ul>
+                        <repeat model="fw.model.example.users2">
+                            <li>{{ime}} {{prezime}}
+                                <ul>
+                                    <repeat model="fw.model.example.users2">
+                                        <li>{{ime}} {{prezime}}
+                                            <ul>
+                                                <repeat model="fw.model.example.users2">
+                                                    <li>{{ime}} {{prezime}}</li>
+                                                </repeat>
+                                            </ul>
+                                        </li>
+                                    </repeat>
+                                </ul>
+                            </li>
+                        </repeat>
+                    </ul>
+                </li>
             </div>
         </repeat>
     </ul>

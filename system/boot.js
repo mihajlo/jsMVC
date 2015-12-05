@@ -26,7 +26,7 @@ try {
 } catch (e) {}
 var fw = {
     getJS: function (path) {
-        console.w('Try to load...: ' + path);
+        console.l('Try to load...: ' + path);
 
         // if(__require_once(path)){
         try {
@@ -576,15 +576,18 @@ fw.tempWrap = function () {
 };
 
 fw.apply = function () {
+    try {
+        fw.repeatTranslate();
+        jQuery('body').css('visibility', 'hidden');
 
-    fw.repeatTranslate();
-    jQuery('body').css('visibility', 'hidden');
-
-    if (jQuery('repeat').length) {
-        setTimeout(function () {
+        if (jQuery('repeat').length) {
+            setTimeout(function () {
+                fw.tempWrap();
+            }, 1);
+        } else {
             fw.tempWrap();
-        }, 1);
-    } else {
-        fw.tempWrap();
+        }
+    } catch (e) {
+        //console.w(e);
     }
 }
