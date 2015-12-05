@@ -236,8 +236,10 @@ eval('fw.controller.' + fw.config.default_controller + '.' + fw.config.ready_met
 
 //events  auto binding
 jQuery(document).ready(function () {
+    fw.loadTemp();
     fw.apply();
     fw.getJS('app/events.js');
+
 });
 jQuery(document).ajaxComplete(function (event, request, settings) {
     fw.apply();
@@ -575,18 +577,42 @@ fw.tempWrap = function () {
     jQuery('body').css('visibility', '');
 };
 
+fw.loadTemp = function () {
+    jQuery.each(jQuery('fw-include'), function (k, v) {
+        jQuery.ajaxSetup({
+            async: false
+        });
+        jQuery(v)[0].outerHTML = jQuery.get($(v).attr('src')).responseText;
+        jQuery.ajaxSetup({
+            async: true
+        });
+    });
+};
+
+
+
 fw.apply = function () {
     try {
-        fw.repeatTranslate();
-        jQuery('body').css('visibility', 'hidden');
-
         if (jQuery('repeat').length) {
-            setTimeout(function () {
-                fw.tempWrap();
-            }, 1);
-        } else {
-            fw.tempWrap();
+            jQuery('body').css('visibility', 'hidden');
         }
+        //fw.repeatTranslate();
+        setTimeout(function () {
+            jQuery('body').css('visibility', 'hidden');
+            fw.repeatTranslate();
+
+
+            if (jQuery('repeat').length) {
+                setTimeout(function () {
+                    fw.tempWrap();
+                }, 1);
+            } else {
+                fw.tempWrap();
+            }
+        }, 1);
+
+
+
     } catch (e) {
         //console.w(e);
     }
