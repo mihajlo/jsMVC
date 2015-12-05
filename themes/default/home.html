@@ -1,16 +1,32 @@
 <div>
 
-
     <h1>Example Homepage</h1>
     <p>Right now: <span label="time"></span></p>
     <ul>
         <repeat model="fw.model.example.users">
             <div>
-                <li>{{name}} {{surname}}</li>
+                <li>{{name}} {{surname}}
+                    <ul>
+                        <repeat model="fw.model.example.users2">
+                            <li>{{ime}} {{prezime}}
+                                <ul>
+                                    <repeat model="fw.model.example.users2">
+                                        <li>{{ime}} {{prezime}}
+                                            <ul>
+                                                <repeat model="fw.model.example.users2">
+                                                    <li>{{ime}} {{prezime}}</li>
+                                                </repeat>
+                                            </ul>
+                                        </li>
+                                    </repeat>
+                                </ul>
+                            </li>
+                        </repeat>
+                    </ul>
+                </li>
             </div>
         </repeat>
     </ul>
-
 
     <hr>
     <ul>
@@ -27,6 +43,7 @@
         </a>
 </p>
 <hr />
+<!--
 <p><strong>{{fw.model.example.quiz.data.question.question}}</strong></p>
 <ul>
     <repeat model="fw.model.example.quiz.data.answers">
@@ -34,3 +51,4 @@
     </repeat>
 
 </ul>
+-->

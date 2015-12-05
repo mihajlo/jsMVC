@@ -166,7 +166,9 @@ fw.getJS('app/config.js');
 for (i = 0; i < fw.config.libs.length; i++) {
     //console.log(fw.config.libs[i]);
     if (fw.config.libs[i].src) {
+        //if (fw.config.libs[i].load) {
         fw.load.library(fw.config.libs[i].src);
+        //}
     }
     if (fw.config.libs[i].callback) {
         fw.config.libs[i].callback.call();
@@ -493,53 +495,93 @@ function __require_once(e) {
 };
 
 
-fw.apply = function () {
-
-
+fw.repeatTranslate = function (el) {
     //START repeat multiplaing
-    jQuery.each(jQuery('repeat'), function (k, v) {
+    //debugger
+    if (!el) {
+        var el = jQuery('repeat');
+    }
+
+
+
+
+    jQuery.each(jQuery(el), function (k, v) {
+
+        jQuery.each(jQuery(v).find('repeat'), function (kk, vv) {
+            jQuery(vv).html(escape(jQuery(vv).html()));
+        });
 
         var htmlAll = '';
         var curHtml = jQuery(v).html();
+
+        //var tmpRepeat = jQuery(v).find('repeat').html();
+        //jQuery(v).find('repeat').html('');
+
+
         var modelStr = jQuery(v).attr('model');
         var model = eval(modelStr);
         var nn = 0;
 
         model.forEach(function (item) {
             curHtml = jQuery(v).html();
+            console.i(modelStr);
             curHtml = str_replace('{{', '{{' + modelStr + '[' + nn + '].', curHtml);
             htmlAll += curHtml;
             nn++;
         });
-
+        //jQuery(v).find('repeat').html(tmpRepeat);
+        //htmlAll = str_replace('</repeat>', tmpRepeat + '</repeat>');
+        //debugger
         jQuery(v)[0].outerHTML = htmlAll;
 
     });
+    jQuery.each(jQuery('repeat'), function (kk, vv) {
+        jQuery(vv).html(unescape(jQuery(vv).html()));
+    });
     //END repeat multiplaing
+};
 
-    //START fixed parsing
-    var bodyHtml = jQuery('body').html();
-    //try {
-    var countTmps = (bodyHtml.match(/{{/g) || []).length;
-    for (i = 0; i < countTmps; i++) {
 
-        if ($('body').html().indexOf('{{') >= 0) {
-            var startTmp = bodyHtml.indexOf('{{') + 2;
-            var endTmp = bodyHtml.indexOf('}}');
-            var varString = bodyHtml.substring(startTmp, endTmp);
-            bodyHtml = bodyHtml.replace('{{', '').replace('}}', '');
-            try {
-                var varValue = eval(varString);
-            } catch (e) {
-                varValue = false;
+fw.apply = function () {
+
+    fw.repeatTranslate();
+
+    setTimeout(function () {
+        //START fixed parsing
+
+        var bodyHtml = jQuery('body').html();
+        //try {
+        var countTmps = (bodyHtml.match(/{{/g) || []).length;
+        for (i = 0; i < countTmps; i++) {
+
+            if (jQuery('body').html().indexOf('{{') >= 0) {
+                var startTmp = bodyHtml.indexOf('{{') + 2;
+                var endTmp = bodyHtml.indexOf('}}');
+                var varString = bodyHtml.substring(startTmp, endTmp);
+
+                //alert('star: ' + varString);
+
+                //if (varString.split('].').length == 3) {
+                //varString = varString.split('].').splice(1, 2).join('].');
+                //}
+                //alert('nov: ' + varString);
+                //console.log(varString);
+                //debugger
+                bodyHtml = bodyHtml.replace('{{', '').replace('}}', '');
+
+                try {
+                    var varValue = eval(varString);
+                } catch (e) {
+                    varValue = false;
+                }
+                if (!varValue) {
+                    varValue = varString;
+                }
+                //alert(varString + '  :  ' + varValue);
+                bodyHtml = bodyHtml.replace(varString, varValue);
+                jQuery('body').html(bodyHtml);
             }
-            if (!varValue) {
-                varValue = varString;
-            }
-            bodyHtml = bodyHtml.replace(varString, varValue);
-            jQuery('body').html(bodyHtml);
         }
-    }
 
-
+    }, 1);
 }

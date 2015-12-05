@@ -7,27 +7,17 @@ fw.config = {
 
         //Load jQuery library (REQUIRED)
         {
-            src: window.location.protocol + '//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js',
+            src: 'system/libs/jquery.min.js',
             callback: function () {
                 fw.lib.jQuery = jQuery;
                 fw.jQuery = jQuery;
             }
         },
-        //Load webcam lib
-        /*how to use:
-         * 
-         * var kamera=fw.lib.webcam.init('#fw',320,240);
-         * var picture_content=fw.lib.webcam.picture(kamera);
-         * picture_content has base64 content of image
-         */
-        {
-            src: 'system/libs/webcam.js',
-            callback: function () {
-                fw.lib.webcam = webcam;
-                fw.webcam = webcam;
-                webcam = null;
-            }
-        },
+
+
+
+
+/*
         {
             src: '//connect.facebook.net/en_US/sdk.js',
             callback: function () {
@@ -53,6 +43,27 @@ fw.config = {
                         }
                     });
                 });
+            }
+        },
+        */
+
+
+
+
+
+        //Load webcam lib
+        /*how to use:
+         *
+         * var kamera=fw.lib.webcam.init('#fw',320,240);
+         * var picture_content=fw.lib.webcam.picture(kamera);
+         * picture_content has base64 content of image
+         */
+        {
+            src: 'system/libs/webcam.js',
+            callback: function () {
+                fw.lib.webcam = webcam;
+                fw.webcam = webcam;
+                webcam = null;
             }
         }
 
