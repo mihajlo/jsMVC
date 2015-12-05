@@ -2,28 +2,12 @@
 
     <h1>Example Homepage</h1>
     <p>Right now: <span label="time"></span></p>
+
+
     <ul>
         <repeat model="fw.model.example.users">
             <div>
-                <li>{{name}} {{surname}}
-                    <ul>
-                        <repeat model="fw.model.example.users2">
-                            <li>{{ime}} {{prezime}}
-                                <ul>
-                                    <repeat model="fw.model.example.users2">
-                                        <li>{{ime}} {{prezime}}
-                                            <ul>
-                                                <repeat model="fw.model.example.users2">
-                                                    <li>{{ime}} {{prezime}}</li>
-                                                </repeat>
-                                            </ul>
-                                        </li>
-                                    </repeat>
-                                </ul>
-                            </li>
-                        </repeat>
-                    </ul>
-                </li>
+                <li>{{name}} {{surname}}</li>
             </div>
         </repeat>
     </ul>

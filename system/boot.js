@@ -495,6 +495,9 @@ function __require_once(e) {
 };
 
 
+
+
+//wrap execute repeat logic and convert into {{ js var here }} syntax
 fw.repeatTranslate = function (el) {
     //START repeat multiplaing
     //debugger
@@ -524,7 +527,7 @@ fw.repeatTranslate = function (el) {
 
         model.forEach(function (item) {
             curHtml = jQuery(v).html();
-            console.i(modelStr);
+            //console.i(modelStr);
             curHtml = str_replace('{{', '{{' + modelStr + '[' + nn + '].', curHtml);
             htmlAll += curHtml;
             nn++;
@@ -542,46 +545,46 @@ fw.repeatTranslate = function (el) {
 };
 
 
+//wrap {{  js var here  }}
+fw.tempWrap = function () {
+    //START fixed parsing
+
+    var bodyHtml = jQuery('body').html();
+    //try {
+    var countTmps = (bodyHtml.match(/{{/g) || []).length;
+    for (i = 0; i < countTmps; i++) {
+
+        if (jQuery('body').html().indexOf('{{') >= 0) {
+            var startTmp = bodyHtml.indexOf('{{') + 2;
+            var endTmp = bodyHtml.indexOf('}}');
+            var varString = bodyHtml.substring(startTmp, endTmp);
+            bodyHtml = bodyHtml.replace('{{', '').replace('}}', '');
+
+            try {
+                var varValue = eval(varString);
+            } catch (e) {
+                varValue = false;
+            }
+            if (!varValue) {
+                varValue = varString;
+            }
+            bodyHtml = bodyHtml.replace(varString, varValue);
+            jQuery('body').html(bodyHtml);
+        }
+    }
+    jQuery('body').css('visibility', '');
+};
+
 fw.apply = function () {
 
     fw.repeatTranslate();
+    jQuery('body').css('visibility', 'hidden');
 
-    setTimeout(function () {
-        //START fixed parsing
-
-        var bodyHtml = jQuery('body').html();
-        //try {
-        var countTmps = (bodyHtml.match(/{{/g) || []).length;
-        for (i = 0; i < countTmps; i++) {
-
-            if (jQuery('body').html().indexOf('{{') >= 0) {
-                var startTmp = bodyHtml.indexOf('{{') + 2;
-                var endTmp = bodyHtml.indexOf('}}');
-                var varString = bodyHtml.substring(startTmp, endTmp);
-
-                //alert('star: ' + varString);
-
-                //if (varString.split('].').length == 3) {
-                //varString = varString.split('].').splice(1, 2).join('].');
-                //}
-                //alert('nov: ' + varString);
-                //console.log(varString);
-                //debugger
-                bodyHtml = bodyHtml.replace('{{', '').replace('}}', '');
-
-                try {
-                    var varValue = eval(varString);
-                } catch (e) {
-                    varValue = false;
-                }
-                if (!varValue) {
-                    varValue = varString;
-                }
-                //alert(varString + '  :  ' + varValue);
-                bodyHtml = bodyHtml.replace(varString, varValue);
-                jQuery('body').html(bodyHtml);
-            }
-        }
-
-    }, 1);
+    if (jQuery('repeat').length) {
+        setTimeout(function () {
+            fw.tempWrap();
+        }, 1);
+    } else {
+        fw.tempWrap();
+    }
 }
