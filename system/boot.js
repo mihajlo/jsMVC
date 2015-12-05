@@ -534,9 +534,6 @@ fw.repeatTranslate = function (el) {
             htmlAll += curHtml;
             nn++;
         });
-        //jQuery(v).find('repeat').html(tmpRepeat);
-        //htmlAll = str_replace('</repeat>', tmpRepeat + '</repeat>');
-        //debugger
         jQuery(v)[0].outerHTML = htmlAll;
 
     });
