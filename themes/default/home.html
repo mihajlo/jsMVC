@@ -5,30 +5,30 @@
 
 
     <ul>
-        <repeat model="fw.model.example.users">
+        <fw-repeat model="fw.model.example.users">
             <div>
                 <li>{{name}} {{surname}}
                     <ul>
-                        <repeat model="fw.model.example.users2">
+                        <fw-repeat model="fw.model.example.users2">
                             <li>{{ime}} {{prezime}}
                                 <ul>
-                                    <repeat model="fw.model.example.users2">
+                                    <fw-repeat model="fw.model.example.users2">
                                         <li>{{ime}} {{prezime}}</li>
-                                    </repeat>
+                                    </fw-repeat>
                                 </ul>
                             </li>
-                        </repeat>
+                        </fw-repeat>
                     </ul>
                 </li>
             </div>
-        </repeat>
+        </fw-repeat>
     </ul>
 
     <hr>
     <ul>
-        <repeat model="fw.model.example.users2">
+        <fw-repeat model="fw.model.example.users2">
             <li>{{ime}} {{prezime}}</li>
-        </repeat>
+        </fw-repeat>
     </ul>
 </div>
 <hr>

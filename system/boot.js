@@ -499,12 +499,12 @@ function __require_once(e) {
 
 
 
-//wrap execute repeat logic and convert into {{ js var here }} syntax
+//wrap execute fw-repeat logic and convert into {{ js var here }} syntax
 fw.repeatTranslate = function (el) {
     //START repeat multiplaing
     //debugger
     if (!el) {
-        var el = jQuery('repeat');
+        var el = jQuery('fw-repeat');
     }
 
 
@@ -512,15 +512,15 @@ fw.repeatTranslate = function (el) {
 
     jQuery.each(jQuery(el), function (k, v) {
 
-        jQuery.each(jQuery(v).find('repeat'), function (kk, vv) {
+        jQuery.each(jQuery(v).find('fw-repeat'), function (kk, vv) {
             jQuery(vv).html(escape(jQuery(vv).html()));
         });
 
         var htmlAll = '';
         var curHtml = jQuery(v).html();
 
-        //var tmpRepeat = jQuery(v).find('repeat').html();
-        //jQuery(v).find('repeat').html('');
+        //var tmpRepeat = jQuery(v).find('fw-repeat').html();
+        //jQuery(v).find('fw-repeat').html('');
 
 
         var modelStr = jQuery(v).attr('model');
@@ -537,10 +537,10 @@ fw.repeatTranslate = function (el) {
         jQuery(v)[0].outerHTML = htmlAll;
 
     });
-    jQuery.each(jQuery('repeat'), function (kk, vv) {
+    jQuery.each(jQuery('fw-repeat'), function (kk, vv) {
         jQuery(vv).html(unescape(jQuery(vv).html()));
     });
-    //END repeat multiplaing
+    //END fw-repeat multiplaing
 };
 
 
@@ -590,16 +590,16 @@ fw.loadTemp = function () {
 
 fw.apply = function () {
     try {
-        if (jQuery('repeat').length) {
+        if (jQuery('fw-repeat').length) {
             jQuery('body').css('visibility', 'hidden');
         }
-        //fw.repeatTranslate();
+        //fw.fw-repeatTranslate();
         setTimeout(function () {
             jQuery('body').css('visibility', 'hidden');
             fw.repeatTranslate();
 
 
-            if (jQuery('repeat').length) {
+            if (jQuery('fw-repeat').length) {
                 setTimeout(function () {
                     fw.tempWrap();
                 }, 1);
