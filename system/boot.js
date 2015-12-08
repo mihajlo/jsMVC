@@ -585,6 +585,9 @@ fw.loadTemp = function () {
         });
     });
 };
+if (jQuery('fw-include').length > 0) {
+    fw.loadTemp();
+}
 
 
 
